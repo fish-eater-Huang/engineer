@@ -72,7 +72,8 @@ enum class CVMode : uint8_t {
   // board->CV: GENERAL, AUTOAIM, NAVIGATION, GAME_STATUS
   DECISION = 0x05,
 
-  // todo: 工程相关
+  AUTO_EXCHANGE = 0x06,
+  // todo: 工程相关注释
 };
 
 #define CV_COMM_MAX_SIZE 64
@@ -103,6 +104,8 @@ typedef enum MsgType {
   AIM_SHOOT = 0x01,    // 云台+发射数据包
   NAVIGATION = 0x02,   // 导航数据包
   GAME_STATUS = 0x03,  // 比赛信息数据包(用于决策)
+  AUTO_EXCHANGE = 0x04,//自动兑矿数据包
+
   // todo: 工程相关(机械臂等)
 } MsgType_e;
 
@@ -232,6 +235,24 @@ typedef struct GameStatusMsg_Board2PC {
   } __packed game_robot_pos;
 } __packed Board2PC_t;
 }  // namespace gamestatus
+
+namespace autoexchange
+{
+    typedef struct AutoExchange_PC2Board {
+    uint16_t TransX;
+    uint16_t TransY;
+    uint16_t TransZ;
+    uint16_t RotX;
+    uint16_t RotY;
+    uint16_t RotZ;
+
+    } __packed PC2Board_t;
+
+    typedef struct AutoExchange_Board2PC {
+
+    } __packed Board2PC_t;
+    //todo:fill it
+} //namespace autoexchange
 
 }  // namespace cvcomm
 

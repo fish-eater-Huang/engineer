@@ -85,7 +85,7 @@ typedef struct Frame {
   uint8_t sof;
   uint8_t pack_id;
   uint8_t data_len;
-  // uint8_t data[n];
+//   uint8_t data[n];
   uint16_t crc16;
 } Frame_t;
 

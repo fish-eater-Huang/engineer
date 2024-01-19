@@ -63,7 +63,7 @@ add_compile_options(${mcu_compile_options})
 add_link_options(${mcu_link_options})
 
 # library
-file(GLOB_RECURSE libs "lib/*.a")
+file(GLOB_RECURSE libs "lib/*.a" "app/auto_exchange.cpp" "app/auto_exchange.h")
 
 # submodules
 add_subdirectory(base)

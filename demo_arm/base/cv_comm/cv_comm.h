@@ -82,6 +82,10 @@ class CVComm {
   cvcomm::gamestatus::PC2Board_t game_status_pc2board_msg_;
   cvcomm::navigation::Board2PC_t game_status_board2pc_msg_;
 
+  Connect auto_exchange_connect_;
+  cvcomm::autoexchange::PC2Board_t auto_exchange_pc2board_msg_;
+  cvcomm::autoexchange::Board2PC_t auto_exchange_board2pc_msg_;
+
  private:
   UART_HandleTypeDef* huart_;
 

@@ -27,7 +27,8 @@ CVComm::CVComm(UART_HandleTypeDef* huart)
       general_connect_(200),
       aim_shoot_connect_(25),
       navigation_connect_(200),
-      game_status_connect_(1000) {}
+      game_status_connect_(1000),
+      auto_exchange_connect_(1000){}
 
 // Init UART receive 初始化，打开UART接收
 void CVComm::init(void) {
@@ -42,6 +43,7 @@ void CVComm::handle(void) {
   aim_shoot_connect_.check();
   navigation_connect_.check();
   game_status_connect_.check();
+  auto_exchange_connect_.check();
 
   general_board2pc_msg_.mode = (uint8_t)mode_;
 }
@@ -206,6 +208,7 @@ void CVComm::rxCallback(void) {
                                   sizeof(rx_.frame.data_len);
     if ((rx_.frame.pack_id & 0xf0) == (uint8_t)cvcomm::MsgStream::PC2BOARD) {
       unpack_error_ = NO_ERROR;
+      //判断信息类型
       if ((rx_.frame.pack_id & 0x0f) == (uint8_t)cvcomm::MsgType::GENERAL) {
         memcpy(&general_pc2board_msg_, rx_.buf + offset, rx_.frame.data_len);
         general_connect_.refresh();
@@ -222,6 +225,11 @@ void CVComm::rxCallback(void) {
         memcpy(&game_status_pc2board_msg_, rx_.buf + offset,
                rx_.frame.data_len);
         game_status_connect_.refresh();
+      }else if ((rx_.frame.pack_id & 0x0f) ==
+                 (uint8_t)cvcomm::MsgType::AUTO_EXCHANGE) {
+          memcpy(&auto_exchange_pc2board_msg_, rx_.buf + offset,
+                 rx_.frame.data_len);
+          auto_exchange_connect_.refresh();
       } else {
         unpack_error_ = ID_UNDEFINED;  // 未定义id
       }
