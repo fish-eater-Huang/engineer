@@ -229,6 +229,16 @@ void CVComm::rxCallback(void) {
                  (uint8_t)cvcomm::MsgType::AUTO_EXCHANGE) {
           memcpy(&auto_exchange_pc2board_msg_, rx_.buf + offset,
                  rx_.frame.data_len);
+          //解包
+          uint8_t tmp[sizeof(auto_exchange_pc2board_msg_)];
+          memcpy(tmp,&auto_exchange_pc2board_msg_,rx_.frame.data_len);
+          auto_exchange_pc2board_msg_.TransX = ( tmp[0]|tmp[1]<<8 )/ 10.f;
+          auto_exchange_pc2board_msg_.TransY = ( tmp[2]|tmp[3]<<8 )/ 10.f;
+          auto_exchange_pc2board_msg_.TransZ = ( tmp[4]|tmp[5]<<8 )/ 10.f;
+          auto_exchange_pc2board_msg_.RotX = ( tmp[6]|tmp[7]<<8 )/ 10000.f;
+          auto_exchange_pc2board_msg_.RotY = ( tmp[8]|tmp[9]<<8 )/ 10000.f;
+          auto_exchange_pc2board_msg_.RotZ = ( tmp[10]|tmp[11]<<8 )/ 10000.f;
+          //解包完成
           auto_exchange_connect_.refresh();
       } else {
         unpack_error_ = ID_UNDEFINED;  // 未定义id
