@@ -32,7 +32,7 @@ extern RefereeComm referee;
 extern ImuComm imu_comm;
 extern ControllerComm controller_comm;
 extern SerialStudio serial_tool;
-
+uint16_t recieve = 0;
 // CAN receive callback
 // CAN接收回调
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef* hcan) {
@@ -53,6 +53,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef* huart) {}
 // UART receive callback
 // UART接收中断回调
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart) {
+	recieve++;
   if (rc.uartCheck(huart)) {
     rc.rxCallback();
   }
