@@ -23,7 +23,7 @@ extern "C" {
 // 视觉通信串口
 #define CV_UART &huart3
 // 裁判系统通信串口
-//#define REFEREE_UART &huart6
+#define REFEREE_UART &huart6
 // 控制器串口
 #define CONTROLLER_UART &huart8
 //舵机串口
@@ -31,7 +31,7 @@ extern "C" {
 // 调试串口
 // #define DEBUG_UART &huart8
 #define DEBUG_USB
-
+//#define UI_TEST_ON_COMPUTER
 // imu相关(spi/i2c/tim)
 #define MPU6500_SPI &hspi5
 #define BOARD_IMU_HEAT_TIM &htim3

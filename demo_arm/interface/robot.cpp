@@ -131,10 +131,10 @@ void minipcCommTask(void const* argument) {
 osThreadId refereeCommTaskHandle;
 void refereeCommTask(void const* argument) {
   referee.init();
-  ui.init();
+//  ui.init();
   for (;;) {
     referee.handle();
-    ui.handle();
+//    ui.handle();
     osDelay(1);
   }
 }
