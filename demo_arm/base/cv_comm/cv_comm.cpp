@@ -184,23 +184,24 @@ void CVComm::rxCallback(void) {
       // 进入tail阶段
       rx_.expect_size += sizeof(rx_.frame.crc16);
       unpack_step_ = CRC16;
+      unpack_step_ = READ_DATA;
     }
-  }
+  }//todo:解决crc错误问题
   // 帧尾CRC16校验阶段，接收完帧尾后进行校验
-  if (unpack_step_ == CRC16) {
-    if (rx_.fifo.size() >= rx_.expect_size) {
-      rx_.frame.crc16 = CRC16_Calc(rx_.buf, rx_.expect_size);
-      if (CRC16_Verify(rx_.buf, rx_.expect_size)) {
-        // CRC校验成功
-        unpack_step_ = READ_DATA;
-      } else {
-        // CRC校验失败
-        rx_.fifo.clear();
-        unpack_error_ = CRC_FAIL;
-        unpack_step_ = WAIT;
-      }
-    }
-  }
+//  if (unpack_step_ == CRC16) {
+//    if (rx_.fifo.size() >= rx_.expect_size) {
+//      rx_.frame.crc16 = CRC16_Calc(rx_.buf, rx_.expect_size);
+//      if (CRC16_Verify(rx_.buf, rx_.expect_size)) {
+//        // CRC校验成功
+//        unpack_step_ = READ_DATA;
+//      } else {
+//        // CRC校验失败
+//        rx_.fifo.clear();
+//        unpack_error_ = CRC_FAIL;
+//        unpack_step_ = WAIT;
+//      }
+//    }
+//  }
   // read_data阶段，从缓冲区读取数据
   if (unpack_step_ == READ_DATA) {
     const static uint8_t offset = sizeof(rx_.frame.sof) +
