@@ -239,12 +239,12 @@ typedef struct GameStatusMsg_Board2PC {
 namespace autoexchange
 {
     typedef struct AutoExchange_PC2Board {
-    uint16_t TransX;
-    uint16_t TransY;
-    uint16_t TransZ;
-    uint16_t RotX;
-    uint16_t RotY;
-    uint16_t RotZ;
+    float TransX;
+    float TransY;
+    float TransZ;
+    float RotX;
+    float RotY;
+    float RotZ;
 
     } __packed PC2Board_t;
 
