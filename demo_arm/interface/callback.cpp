@@ -53,7 +53,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef* huart) {}
 // UART receive callback
 // UART接收中断回调
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef* huart) {
-	recieve++;
+
   if (rc.uartCheck(huart)) {
     rc.rxCallback();
   }

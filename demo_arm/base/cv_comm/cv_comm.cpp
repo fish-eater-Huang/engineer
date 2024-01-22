@@ -20,7 +20,7 @@
 
 #include "base/cv_comm/cv_comm.h"
 #include "cmsis_os.h"
-
+extern uint16_t recieve;
 CVComm::CVComm(UART_HandleTypeDef* huart)
     : huart_(huart),
       unpack_step_(WAIT),
@@ -135,7 +135,7 @@ void CVComm::txMsg(cvcomm::MsgStream_e msg_stream, cvcomm::MsgType_e msg_type) {
 void CVComm::rxCallback(void) {
   // 将接收到的1byte数据存入fifo缓冲区
   rx_.fifo.append(rx_.byte, 1);
-
+  recieve++;
   // 数据解包
   // 等待阶段
   if (unpack_step_ == WAIT) {
