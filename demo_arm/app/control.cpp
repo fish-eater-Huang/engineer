@@ -203,7 +203,7 @@ void robotControl(void) {
 //                    rc.channel_.l_col * rcctrl::arm_joint_rate,
 //                    rc.channel_.dial_wheel * rcctrl::arm_joint_rate,
 //                    rc.channel_.r_row * rcctrl::arm_joint_rate,
-//                    -rc.channel_.r_col * rcctrl::arm_joint_rate, 0);
+//                    -rc.channel_.r_col * rcctrl::arm_joint_  rate, 0);
 //    arm.trajAbort();
   }
   // 遥控器挡位左下右中
