@@ -6,6 +6,7 @@
 #include "base/cv_comm/cv_comm.h"
 extern CVComm cv_comm;
 extern Arm arm;
+float test1,test2;
 float r0[9] = {0, 0, 1, 0, -1, 0, 1, 0, 0};
 Matrixf<3,3> R0_ = Matrixf<3, 3>(r0);
 
@@ -51,18 +52,12 @@ Matrixf<4,4> AutoExchangeController::cv2t(void)
     rpy_cv_ref[1][2] = (1-cosf(theta))*Rotate_axis[1][0]*Rotate_axis[2][0]-sinf(theta)*Rotate_axis[0][0];
     rpy_cv_ref[2][2] = cosf(theta)+(1-cosf(theta))*Rotate_axis[2][0]*Rotate_axis[2][0];
     cv_t = robotics::rp2t( rpy_cv_ref*R0_, p_cv_ref);
-    return cv_t;
-}
 
-
-void AutoExchangeController::auto_follow()
-{
-    Matrixf<4,4> T= cv2t();
-    Matrixf<3, 1> p_ref;
     Matrixf<3, 1> rpy_ref;
+    Matrixf<3,1> p_ref;
 
-    p_ref = robotics::t2p(T);
-    rpy_ref = robotics::t2rpy(T);
+    rpy_ref = robotics::t2rpy(cv_t);
+    p_ref = robotics::t2p(cv_t);
 
     this->ref_.x = p_ref[0][0];
     this->ref_.y = p_ref[1][0];
@@ -70,9 +65,23 @@ void AutoExchangeController::auto_follow()
     this->ref_.yaw = rpy_ref[0][0];
     this->ref_.pitch = rpy_ref[1][0];
     this->ref_.roll = rpy_ref[2][0];
+
+    test2 = this->ref_.x;
+
+    return cv_t;
+
+}
+
+
+void AutoExchangeController::auto_follow()
+{
+
+    cv2t();
+
     arm.ref_.x = this->ref_.x;
     arm.ref_.y = this->ref_.y;
     arm.ref_.z = this->ref_.z;
+
     arm.ref_.yaw = this->ref_.yaw;
     arm.ref_.pitch = this->ref_.pitch;
     arm.ref_.roll = this->ref_.roll;

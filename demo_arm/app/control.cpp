@@ -193,11 +193,11 @@ void robotControl(void) {
   else if (rc.switch_.l == RC::MID && rc.switch_.r == RC::MID) {
     arm.mode_ = Arm::Mode_e::MANIPULATION;
     arm.traj_.method = Arm::Traj_t::Method_e::JOINT;
-    if(cv_comm.auto_exchange_connect_.check())
-    {
+//    if(cv_comm.auto_exchange_connect_.check())
+//    {
         autoexchange_controller.auto_follow();
         //arm.setRef()
-    }
+//    }
 //    arm.setRef()
 //    arm.addJointRef(-rc.channel_.l_row * rcctrl::arm_joint_rate,
 //                    rc.channel_.l_col * rcctrl::arm_joint_rate,
