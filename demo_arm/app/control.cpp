@@ -195,6 +195,15 @@ void robotControl(void) {
     arm.traj_.method = Arm::Traj_t::Method_e::JOINT;
 //    if(cv_comm.auto_exchange_connect_.check())
 //    {
+      if (rc.switch_.l != last_rc_switch.l || rc.switch_.r != last_rc_switch.r) {
+        autoexchange_controller.ref_.x = arm.fdb_.x;
+        autoexchange_controller.ref_.y = arm.fdb_.y;
+        autoexchange_controller.ref_.z = arm.fdb_.z;
+        autoexchange_controller.ref_.yaw = arm.fdb_.yaw;
+        autoexchange_controller.ref_.pitch = arm.fdb_.pitch;
+        autoexchange_controller.ref_.roll = arm.fdb_.roll;
+
+      }
         autoexchange_controller.auto_follow();
         //arm.setRef()
 //    }
