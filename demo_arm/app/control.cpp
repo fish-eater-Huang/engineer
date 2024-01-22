@@ -195,6 +195,7 @@ void robotControl(void) {
     arm.traj_.method = Arm::Traj_t::Method_e::JOINT;
     if(cv_comm.auto_exchange_connect_.check())
     {
+        autoexchange_controller.auto_follow();
         //arm.setRef()
     }
 //    arm.setRef()
