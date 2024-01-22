@@ -20,6 +20,8 @@
 
 #include "base/cv_comm/cv_comm.h"
 #include "cmsis_os.h"
+#include "app/auto_exchange.h"
+extern AutoExchangeController autoexchange_controller;
 extern uint16_t recieve;
 CVComm::CVComm(UART_HandleTypeDef* huart)
     : huart_(huart),
@@ -239,6 +241,7 @@ void CVComm::rxCallback(void) {
           auto_exchange_pc2board_msg_.RotX = (int16_t)( tmp[6]|tmp[7]<<8 )/ 10000.f;
           auto_exchange_pc2board_msg_.RotY = (int16_t)( tmp[8]|tmp[9]<<8 )/ 10000.f;
           auto_exchange_pc2board_msg_.RotZ = (int16_t)( tmp[10]|tmp[11]<<8 )/ 10000.f;
+          autoexchange_controller.auto_follow();
           //解包完成
           auto_exchange_connect_.refresh();
       } else {

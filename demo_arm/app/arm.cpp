@@ -143,7 +143,7 @@ void Arm::handle(void) {
         j3_->connect_.check() && j4_->connect_.check() &&
         j5_->connect_.check() && j6_->connect_.check())) {
     // 电机离线重新初始化
-    init_.is_finish = false;
+//    init_.is_finish = false;
   }
 
 
