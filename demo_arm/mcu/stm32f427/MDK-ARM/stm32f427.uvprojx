@@ -799,6 +799,16 @@
               <FileType>8</FileType>
               <FilePath>..\..\..\app\serial_tool.cpp</FilePath>
             </File>
+            <File>
+              <FileName>auto_exchange.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\..\..\app\auto_exchange.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>auto_exchange.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\..\app\auto_exchange.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

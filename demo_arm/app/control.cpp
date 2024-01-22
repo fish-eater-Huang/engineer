@@ -28,7 +28,7 @@
 #include "base/referee_comm/referee_comm.h"
 #include "base/remote/remote.h"
 #include "base/servo/servo.h"
-
+#include "app/auto_exchange.h"
 void iwdgHandler(bool iwdg_refresh_flag);
 void robotPowerStateFSM(bool stop_flag);
 void robotReset(void);
@@ -42,7 +42,7 @@ extern ArmController arm_controller;
 extern CVComm cv_comm;
 extern RefereeComm referee;
 extern ServoZX361D pump_servo[];
-
+extern AutoExchangeController autoexchange_controller;
 uint8_t board_id = 0;
 // Pump pump_arm(&PM_ARM, &pump_servo[0], 500, 1000);
 // Pump pump_l(&PM_L, &pump_servo[1], 500, 1000);
@@ -191,14 +191,19 @@ void robotControl(void) {
   }
   // 遥控器挡位左中右中
   else if (rc.switch_.l == RC::MID && rc.switch_.r == RC::MID) {
-    arm.mode_ = Arm::Mode_e::JOINT;
+    arm.mode_ = Arm::Mode_e::MANIPULATION;
     arm.traj_.method = Arm::Traj_t::Method_e::JOINT;
-    arm.addJointRef(-rc.channel_.l_row * rcctrl::arm_joint_rate,
-                    rc.channel_.l_col * rcctrl::arm_joint_rate,
-                    rc.channel_.dial_wheel * rcctrl::arm_joint_rate,
-                    rc.channel_.r_row * rcctrl::arm_joint_rate,
-                    -rc.channel_.r_col * rcctrl::arm_joint_rate, 0);
-    arm.trajAbort();
+    if(cv_comm.auto_exchange_connect_.check())
+    {
+        //arm.setRef()
+    }
+//    arm.setRef()
+//    arm.addJointRef(-rc.channel_.l_row * rcctrl::arm_joint_rate,
+//                    rc.channel_.l_col * rcctrl::arm_joint_rate,
+//                    rc.channel_.dial_wheel * rcctrl::arm_joint_rate,
+//                    rc.channel_.r_row * rcctrl::arm_joint_rate,
+//                    -rc.channel_.r_col * rcctrl::arm_joint_rate, 0);
+//    arm.trajAbort();
   }
   // 遥控器挡位左下右中
   else if (rc.switch_.l == RC::DOWN && rc.switch_.r == RC::MID) {

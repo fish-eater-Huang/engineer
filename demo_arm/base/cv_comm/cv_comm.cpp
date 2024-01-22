@@ -186,7 +186,7 @@ void CVComm::rxCallback(void) {
       unpack_step_ = CRC16;
       unpack_step_ = READ_DATA;
     }
-  }//todo:解决crc错误问题
+  }
   // 帧尾CRC16校验阶段，接收完帧尾后进行校验
   if (unpack_step_ == CRC16) {
     if (rx_.fifo.size() >= rx_.expect_size) {

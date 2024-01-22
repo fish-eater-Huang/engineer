@@ -5,15 +5,29 @@
 #ifndef RM_FRAME_AUTO_EXCHANGE_H
 #define RM_FRAME_AUTO_EXCHANGE_H
 #include "base/robotics/robotics.h"
+#include "app/arm.h"
 
-namespace auto_exchange{
-//视觉信息转换成转移矩阵 cv->T
-Matrixf<4,4> cv2t(void);
 
-//通过视觉信息控制机械臂跟随
-void auto_follow();
+class  AutoExchangeController{
+public:
 
-}
+    AutoExchangeController();
+    //视觉信息转换为传递矩阵
+    Matrixf<4,4> cv2t(void);
+    //自动跟随函数
+    void auto_follow();
+
+    struct AutoExchange_ref_t
+    {
+        float x;
+        float y;
+        float z;
+        float yaw;
+        float pitch;
+        float roll;
+    } ref_;
+};
+
 
 
 
